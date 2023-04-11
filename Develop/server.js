@@ -12,11 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public')); // controls path
 
-// will need this to get the index and notes html
+// will need this to get the  root and notes html
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')));
 
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
 
+// will use this to update json file
 app.get('/api/notes', (req, res) => res.sendFile(path.join(__dirname, './db/db.json')));
   
 app.post('/api/notes', (req, res) => {
@@ -48,15 +49,23 @@ app.post('/api/notes', (req, res) => {
 });
 
 
-// app.delete('/api/notes/:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
+  const id = req.params.id; // getting id
+  console.log(id) // confirming
+  const noteDelete = notes.find(el => el.id === id) //loop through the json file, through each object in the array, using dot notation to access the element's id, then IF it match assign to variable
+  const index = notes.indexOf(noteDelete)// json file, and find the index of the noteDeleted
+  notes.splice(index, 1) // takes json file, splice at the index and whatever note is EQUAL to noteDeleted, 1 is how many it slices
 
-//   const id = req.params.body;
-//   notes.remove(id);
-
-//   res.send(`Youre ${id} has been deleted`)
-// })
-
-
+  fs.writeFile(`./db/db.json`, JSON.stringify(notes), (err) =>  // this writeFile then updates json file with the note deleted
+  err ? console.log(err) : console.log(`Review for ${id} has been deleted from JSON file`)
+  );
+  res.status(204).json({
+    status: 'success',
+    data: {
+      note:null
+    }
+  })
+});
 
 app.listen(PORT, () =>
   console.log(`Express server listening on port http://localhost:${PORT}`)
