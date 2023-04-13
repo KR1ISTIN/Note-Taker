@@ -25,8 +25,9 @@ npm i<br>
 Add a note title and note detail, then click the save icon in the upper right corner.  Note will then be saved on the left column. Click the delete icon on the note you wish to remove. Click the + icon in the upper right to add a new note. <br>
 Inside terminal run: node server.js and a link will be provided
 
-<a href=''>Link to Note-Taker</a>
+<a href='https://git.heroku.com/tranquil-retreat-98333.git'>Link to Note-Taker</a>
 
+![Untitled_ Apr 12, 2023 9_39 PM](https://user-images.githubusercontent.com/121457179/231634271-39b278a1-2531-4757-bb1a-5c897a78dde4.gif)
 
 
 
